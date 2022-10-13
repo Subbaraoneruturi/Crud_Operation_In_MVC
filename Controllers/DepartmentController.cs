@@ -33,6 +33,27 @@ namespace Crud_Operation_In_MVC.Controllers
         }
 
 
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            var data = _context.Departments.Where(x => x.DeptId == id).FirstOrDefault();
+            return View(data);
+        }
+        [HttpPost]
+        public ActionResult Edit(Department Model)
+        {
+            var data = _context.Departments.Where(x => x.DeptId == Model.DeptId).FirstOrDefault();
+            if (data != null)
+            {
+                data.DeptCode = Model.DeptCode;
+                data.DeptName = Model.DeptName;
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction("index");
+        }
+
+
 
 
     }
